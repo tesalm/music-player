@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             x:Class="music_player.Views.FoldersPage"
+             xmlns:local="clr-namespace:music_player.ViewModels"
+             xmlns:model="clr-namespace:music_player.Models"
+             xmlns:views="clr-namespace:music_player.Views"
+             Title="{Binding Title}">
+
+    <!--
+      x:DataType enables compiled bindings for better performance and compile time validation of binding expressions.
+    -->
+    <StackLayout Spacing="0" BackgroundColor="#FFFFFF">
+        <ListView x:DataType="local:FoldersViewModel" Margin="0,2,0,2" RowHeight="76" CachingStrategy="RecycleElement"
+                  ItemsSource="{Binding Folders}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell x:DataType="model:Folder">
+                        <Grid BackgroundColor="#0A000000" xct:TouchEffect.NativeAnimation="True" Margin="0" Padding="5,5,10,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="60"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <Image Grid.Column="0" Grid.RowSpan="2" Source="open_folder.png" HeightRequest="60" Aspect="AspectFit" Margin="0"/>
+                            <Label Margin="8,10,0,0" Grid.Column="1" Grid.Row="0" LineBreakMode="NoWrap">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding Name}" FontSize="16"/>
+                                        <Span Text="{Binding FileCount, StringFormat='  ({0})'}" TextColor="Gray"/>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <Label Text="{Binding Path}" Grid.Column="1" Grid.Row="1" LineBreakMode="NoWrap" Opacity="0.6" FontSize="12" Margin="8,-2,0,0"/>
+
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type local:FoldersViewModel}}, Path=FolderTapped}"		
+                                    CommandParameter="{Binding .}"/>
+                            </Grid.GestureRecognizers>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <views:PlayerControlBar/>
+    </StackLayout>
+</ContentPage>

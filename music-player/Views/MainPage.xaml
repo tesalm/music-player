@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             x:Class="music_player.Views.MainPage"
+             xmlns:views="clr-namespace:music_player.Views"
+             xmlns:vm="clr-namespace:music_player.ViewModels"
+             xmlns:model="clr-namespace:music_player.Models"
+             Title="{Binding Title}">
+
+    <ContentPage.BindingContext>
+        <vm:MainViewModel />
+    </ContentPage.BindingContext>
+
+    <StackLayout Margin="0,2,0,0" Spacing="3">
+        <Grid BackgroundColor="#FFFFFF" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="120"/>
+            </Grid.RowDefinitions>
+
+            <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="0" Grid.Column="0" Padding="15,5,15,5" xct:TouchEffect.NativeAnimation="True">
+                <Image Source="folder.png" Aspect="AspectFit" HeightRequest="48" xct:IconTintColorEffect.TintColor="#FEC834"/>
+                <Label Text="Folders" HorizontalOptions="Center"/>
+                <Label Text="{Binding FolderCount, StringFormat='({0})'}" HorizontalOptions="Center" Opacity="0.5"/>
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding FolderTapped}"/>
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+            <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="0" Grid.Column="1" Padding="15,5,15,5" xct:TouchEffect.NativeAnimation="True">
+                <Image Source="music_note.png" Aspect="AspectFit" HeightRequest="48" xct:IconTintColorEffect.TintColor="DarkViolet"/>
+                <Label Text="Tracks" HorizontalOptions="Center"/>
+                <Label Text="{Binding TrackCount, StringFormat='({0})'}" HorizontalOptions="Center" Opacity="0.5"/>
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer  NumberOfTapsRequired="1" Command="{Binding TracksTapped}"/>
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+        </Grid>
+
+        <StackLayout VerticalOptions="FillAndExpand" BackgroundColor="#FFFFFF">
+            <Label Text="Playlists" FontSize="18" Margin="0,15,0,0" HorizontalOptions="CenterAndExpand" Opacity="0.6"/>
+            <Label Text="No playlists" IsVisible="{Binding ListIsEmpty}" HorizontalOptions="CenterAndExpand" Margin="0,30,0,0" Opacity="0.4"/>
+
+            <ListView Margin="0" RowHeight="70" SelectionMode="None"
+                  x:DataType="vm:MainViewModel"
+                  ItemsSource="{Binding Playlists}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell x:DataType="model:TrackPlaylist">
+                            <Grid BackgroundColor="#05000000" Margin="0" Padding="15,0,15,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="24"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <Grid Grid.Column="0" xct:TouchEffect.NativeAnimation="True" Padding="5,5,10,5" Margin="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="50"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Image Grid.Column="0" Grid.RowSpan="2" Source="playlist.png" HeightRequest="50" Aspect="AspectFit" Margin="0"/>
+                                    <Label Grid.Column="1" Grid.Row="0" Text="{Binding Name}" LineBreakMode="NoWrap" Margin="8,8,0,0"/>
+                                    <Label Grid.Column="1" Grid.Row="1" Text="{Binding TrackCount, StringFormat='Tracks ({0})'}" LineBreakMode="NoWrap" Opacity="0.6" Margin="8,-2,0,0" FontSize="12"/>
+
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer NumberOfTapsRequired="1"
+                                             Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainViewModel}}, Path=PlaylistTapped}"
+                                             CommandParameter="{Binding .}"/>
+                                    </Grid.GestureRecognizers>
+                                </Grid>
+
+                                <ImageButton Grid.Column="1" Source="delete.png" Margin="0" xct:TouchEffect.NativeAnimation="True"
+                                             Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainViewModel}}, Path=RemovePlaylistCommand}"
+                                             CommandParameter="{Binding .}"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+
+        <views:PlayerControlBar IsVisible="{Binding Source={RelativeSource AncestorType={x:Type vm:MainViewModel}}, Path=ShowControl}"/>
+
+    </StackLayout>
+
+</ContentPage>

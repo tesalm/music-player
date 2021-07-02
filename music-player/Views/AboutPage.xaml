@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="music_player.Views.AboutPage"
+             Title="About">
+
+    <StackLayout BackgroundColor="WhiteSmoke" Padding="20,30,0,0" Spacing="1">
+        <Label Text="App icons by" FontSize="16" FontAttributes="Bold"/>
+        <Label Text="https://icons8.com" FontSize="16"/>
+        <Label Text="Build version" FontSize="16" Margin="0,26,0,0" FontAttributes="Bold"/>
+        <Label x:Name="VersionLabel" FontSize="16"/>
+    </StackLayout>
+
+</ContentPage>

@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31321.278
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "music-player.Android", "music-player.Android\music-player.Android.csproj", "{FAF7E06A-85CB-4680-9945-06776CECACF5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "music-player", "music-player\music-player.csproj", "{06BD6A12-BD31-4BF5-875A-8D7BA0B38B69}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FAF7E06A-85CB-4680-9945-06776CECACF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAF7E06A-85CB-4680-9945-06776CECACF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAF7E06A-85CB-4680-9945-06776CECACF5}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{FAF7E06A-85CB-4680-9945-06776CECACF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAF7E06A-85CB-4680-9945-06776CECACF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FAF7E06A-85CB-4680-9945-06776CECACF5}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{06BD6A12-BD31-4BF5-875A-8D7BA0B38B69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06BD6A12-BD31-4BF5-875A-8D7BA0B38B69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06BD6A12-BD31-4BF5-875A-8D7BA0B38B69}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{06BD6A12-BD31-4BF5-875A-8D7BA0B38B69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06BD6A12-BD31-4BF5-875A-8D7BA0B38B69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06BD6A12-BD31-4BF5-875A-8D7BA0B38B69}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {46516811-8D75-4FFE-AA89-3E4F2315CC7B}
+	EndGlobalSection
+EndGlobal

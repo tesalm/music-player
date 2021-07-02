@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:local="clr-namespace:music_player.ViewModels"
+             x:DataType="local:PlayerControlModel"
+             IsVisible="{Binding Source={RelativeSource AncestorType={x:Type local:BaseViewModel}}, Path=ShowPlayerControl}"
+             x:Class="music_player.Views.PlayerControlBar"
+             HeightRequest="64" MinimumHeightRequest="60" VerticalOptions="End">
+    <ContentView.Content>
+        <StackLayout Orientation="Horizontal"
+                     Padding="10,0,10,0"
+                     BackgroundColor="#FFFFFF">
+            <Label Text="{Binding Control_TrackName}"
+                   LineBreakMode="TailTruncation"
+                   HorizontalOptions="FillAndExpand"
+                   VerticalOptions="Center"
+                   TextColor="Black"
+                   HorizontalTextAlignment="Start"/>
+            <Image IsAnimationPlaying="{Binding Control_IsPlaying}"
+                   Aspect="AspectFit"
+                   HeightRequest="38"
+                   Source="audiowave.gif"
+                   Margin="5,0,8,0"
+                   xct:IconTintColorEffect.TintColor="Black"
+                   HorizontalOptions="End"/>
+            <ImageButton Source="{Binding Control_PlayPauseImage}"
+                         Command="{Binding PlayPauseCommand}"
+                         HorizontalOptions="End"
+                         HeightRequest="38"
+                         xct:IconTintColorEffect.TintColor="Black"
+                         xct:TouchEffect.NativeAnimation="True"/>
+            <ImageButton Source="playnext.png"
+                         Command="{Binding PlayNextCommand}"
+                         HorizontalOptions="End"
+                         HeightRequest="38"
+                         xct:IconTintColorEffect.TintColor="Black"
+                         xct:TouchEffect.NativeAnimation="True"/>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

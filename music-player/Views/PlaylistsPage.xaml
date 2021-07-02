@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="music_player.Views.PlaylistsPage"
+             xmlns:local="clr-namespace:music_player.ViewModels"
+             xmlns:model="clr-namespace:music_player.Models"
+             Title="Add to playlist">
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="plus.png" Command="{Binding AddNewPlaylistCommand}"/>
+    </ContentPage.ToolbarItems>
+
+    <StackLayout Padding="15,15,15,0">
+    <Label Text="No playlists" IsVisible="{Binding ListIsEmpty}" HorizontalOptions="Center" Margin="0,50,0,0" Opacity="0.5"/>
+    <ListView Margin="0"
+              x:DataType="local:PlaylistsViewModel"
+              ItemsSource="{Binding Playlists}">
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                    <ImageCell x:DataType="model:TrackPlaylist"
+                           TextColor="Black"
+                           DetailColor="#848484"
+                           Command="{Binding Source={RelativeSource AncestorType={x:Type local:PlaylistsViewModel}}, Path=PlaylistTapped}"
+                           CommandParameter="{Binding .}"
+                           ImageSource="playlist.png"
+                           Text="{Binding Name}"
+                           Detail="{Binding TrackCount, StringFormat='Tracks ({0})'}"/>
+                </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+    </StackLayout>
+</ContentPage>

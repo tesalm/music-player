@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="music_player.Views.TracksPage"
+             xmlns:local="clr-namespace:music_player.ViewModels"
+             xmlns:model="clr-namespace:music_player.Models"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:views="clr-namespace:music_player.Views"
+             Title="{Binding Title}">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="search.png" Command="{Binding SearchTapped}" Clicked="Search_Clicked"/>
+        <ToolbarItem IconImageSource="shuffle.png" Command="{Binding ShuffleTapped}"/>
+    </ContentPage.ToolbarItems>
+
+    <!--
+      x:DataType enables compiled bindings for better performance and compile time validation of binding expressions.
+      https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/data-binding/compiled-bindings
+    -->
+    <StackLayout Spacing="0" BackgroundColor="#FFFFFF">
+        <SearchBar Text="{Binding QueryText}" Placeholder="Search" BackgroundColor="#329147FF" IsVisible="{Binding ShowSearchBar}"/>
+
+        <ListView x:Name="listView" Margin="0,2,0,0" RowHeight="76" SelectionMode="None" CachingStrategy="RecycleElementAndDataTemplate"
+                  x:DataType="local:TracksViewModel"
+                  ItemsSource="{Binding Tracks}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell x:DataType="model:Track">
+                        <Grid BackgroundColor="#0A000000" Margin="0" Padding="0,0,10,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="26"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Column="0" xct:TouchEffect.NativeAnimation="True" Padding="5,5,10,5" Margin="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <Image Grid.Column="0" Grid.RowSpan="2" Source="{Binding Art}" HeightRequest="60" Aspect="AspectFit" Margin="0"/>
+                                <Label Grid.Column="1" Grid.Row="0" Text="{Binding Name}" LineBreakMode="TailTruncation" Margin="8,10,0,0"/>
+                                <Label Grid.Column="1" Grid.Row="1" Text="{Binding Artist}" LineBreakMode="NoWrap" Opacity="0.6" Margin="8,-2,0,0"/>
+
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer NumberOfTapsRequired="1"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type local:TracksViewModel}}, Path=TrackTapped}"
+                                    CommandParameter="{Binding .}"/>
+                                </Grid.GestureRecognizers>
+                            </Grid>
+
+                            <ImageButton Grid.Column="1" Source="add.png" Margin="0" xct:TouchEffect.NativeAnimation="True"
+                                         Command="{Binding Source={RelativeSource AncestorType={x:Type local:TracksViewModel}}, Path=AddToPlaylistCommand}"
+                                         CommandParameter="{Binding .}"/>
+                        </Grid>
+                    </ViewCell>
+                    <!--
+                    <ImageCell x:DataType="model:Track"
+                               TextColor="Black"
+                               DetailColor="#848484"
+                               Command="{Binding Source={RelativeSource AncestorType={x:Type local:TracksViewModel}}, Path=TrackTapped}"
+                               CommandParameter="{Binding .}"
+                               ImageSource="{Binding Art}"
+                               Text="{Binding Name}"
+                               Detail="{Binding Artist}"/>
+                    -->
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <views:PlayerControlBar/>
+
+    </StackLayout>
+</ContentPage>
