@@ -12,14 +12,12 @@ namespace music_player.ViewModels
    public class TracksViewModel : BaseViewModel
    {
       public Command ShuffleTapped { get; }
-      public Command SearchTapped { get; }
       public Command<Track> TrackTapped { get; }
       public Command<Track> AddToPlaylistCommand { get; }
       public bool PlayerPrepared { get; set; } = false;
       public string FolderId { get; set; }
       private IList<Track> DataHolder { get; set; } = new List<Track>();
       private IList<Track> tracks = new List<Track>();
-      private bool showSearch = false;
       private string queryText = string.Empty;
 
       public TracksViewModel()
@@ -27,7 +25,6 @@ namespace music_player.ViewModels
          Title = "Tracks";
          TrackTapped = new Command<Track>(OnTrackSelected);
          ShuffleTapped = new Command(OnShuffleTapped);
-         SearchTapped = new Command(OnSearchIconTapped);
          AddToPlaylistCommand = new Command<Track>(OnAddToPlaylist);
       }
 
@@ -35,12 +32,6 @@ namespace music_player.ViewModels
       {
          get => tracks;
          set => SetProperty(ref tracks, value);
-      }
-
-      public bool ShowSearchBar
-      {
-         get => showSearch;
-         set => SetProperty(ref showSearch, value);
       }
 
       private async Task LoadTracks()
@@ -72,16 +63,6 @@ namespace music_player.ViewModels
          {
             await LoadTracks();
          }
-      }
-
-      private void OnSearchIconTapped()
-      {
-         if (ShowSearchBar)
-         {
-            ShowSearchBar = false;
-            QueryText = string.Empty;
-         }
-         else ShowSearchBar = true;
       }
 
       public string QueryText

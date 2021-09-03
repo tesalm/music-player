@@ -24,8 +24,14 @@ namespace music_player.Views
 
       public void Search_Clicked(object sender, System.EventArgs args)
       {
+         search.IsVisible = !search.IsVisible;
          listView.VerticalOptions = LayoutOptions.Start;
          listView.VerticalOptions = LayoutOptions.FillAndExpand;
+
+         if (search.IsVisible)
+         {
+            _ = search.Focus();
+         }
       }
    }
 }

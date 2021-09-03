@@ -9,7 +9,7 @@
              Title="{Binding Title}">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem IconImageSource="search.png" Command="{Binding SearchTapped}" Clicked="Search_Clicked"/>
+        <ToolbarItem IconImageSource="search.png" Clicked="Search_Clicked"/>
         <ToolbarItem IconImageSource="shuffle.png" Command="{Binding ShuffleTapped}"/>
     </ContentPage.ToolbarItems>
 
@@ -18,7 +18,7 @@
       https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/data-binding/compiled-bindings
     -->
     <StackLayout Spacing="0" BackgroundColor="#FFFFFF">
-        <SearchBar Text="{Binding QueryText}" Placeholder="Search" BackgroundColor="#329147FF" IsVisible="{Binding ShowSearchBar}"/>
+        <SearchBar x:Name="search" Text="{Binding QueryText}" Placeholder="Search" BackgroundColor="#329147FF" IsVisible="False" />
 
         <ListView x:Name="listView" Margin="0,2,0,0" RowHeight="76" SelectionMode="None" CachingStrategy="RecycleElementAndDataTemplate"
                   x:DataType="local:TracksViewModel"

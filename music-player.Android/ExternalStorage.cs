@@ -65,8 +65,8 @@ namespace music_player.Droid
          mmr.SetDataSource(path);
          string artist = mmr.ExtractMetadata(MetadataKey.Artist);
          string album = mmr.ExtractMetadata(MetadataKey.Album);
-         if (String.IsNullOrEmpty(artist)) artist = "null";
-         if (String.IsNullOrEmpty(album)) album = "null";
+         if (String.IsNullOrEmpty(artist)) artist = "unknown";
+         if (String.IsNullOrEmpty(album)) album = "unknown";
          byte[] art = mmr.GetEmbeddedPicture();
          var artBitmap = GetBitmap(art);
          string fileName = Path.GetFileNameWithoutExtension(path);
